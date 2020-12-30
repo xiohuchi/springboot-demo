@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * @author yangbin
@@ -19,12 +21,13 @@ public class TestController {
 
     @RequestMapping("/test")
     public String test(@RequestParam String name) throws InterruptedException {
-        System.out.println("接收请求：" + name);
+        System.out.println(LocalDateTime.now() + "接收请求：" + name);
         RLock lock = redissonClient.getLock("test");
         lock.lock();
+        System.out.println(LocalDateTime.now() + "处理请求：" + name);
         Thread.sleep(10000);
         lock.unlock();
-        System.out.println("返回请求：" + name);
+        System.out.println(LocalDateTime.now() + "返回请求：" + name);
         return "Hello World";
     }
 }
