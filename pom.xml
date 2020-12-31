@@ -14,6 +14,7 @@
 
     <modules>
         <module>demo-hello</module>
+        <module>demo-redisson</module>
     </modules>
 
     <build>
