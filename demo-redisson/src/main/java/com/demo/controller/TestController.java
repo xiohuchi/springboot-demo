@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author yangbin
@@ -19,21 +20,23 @@ public class TestController {
     private RedissonClient redissonClient;
 
     @RequestMapping("/test")
-    public String test(@RequestParam String name) throws InterruptedException {
-        System.out.println(LocalDateTime.now() + "接收请求：" + name);
+    public String test(@RequestParam Integer num) throws InterruptedException {
+        System.out.println(LocalDateTime.now() + "接收请求：" + num);
         RLock lock = redissonClient.getLock("test");
         System.out.println("lock.isLocked：" + lock.isLocked());
-        lock.lock();
+        lock.lock(60, TimeUnit.SECONDS);
 
-        doThings(name);
+        doThings(num);
 
         lock.unlock();
-        System.out.println(LocalDateTime.now() + "返回请求：" + name);
+        System.out.println(LocalDateTime.now() + "返回请求：" + num);
         return "Hello World";
     }
 
-    private void doThings(String name) throws InterruptedException {
-        System.out.println(LocalDateTime.now() + "处理请求：" + name);
+    private void doThings(Integer num) throws InterruptedException {
+        System.out.println(LocalDateTime.now() + "处理请求：" + num);
+
         Thread.sleep(10000);
+        int i = 1 / num;
     }
 }
