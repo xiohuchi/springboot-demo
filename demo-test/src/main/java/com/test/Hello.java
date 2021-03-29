@@ -15,7 +15,7 @@ public class Hello {
         strings.push("4");
         strings.push("5");
         strings.push("6");
-            String pop = strings.pop();
-            System.out.println(pop);
+        String pop = strings.pop();
+        System.out.println(pop);
     }
 }

@@ -5,7 +5,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +61,7 @@ public class HelloWorldController {
         BufferedReader in = null;
         try {
             // 定义HttpClient
-            HttpClient client = new DefaultHttpClient();
+            HttpClient client = HttpClientBuilder.create().build();
             // 实例化HTTP方法
             HttpPost request = new HttpPost();
             request.setURI(new URI(url));
