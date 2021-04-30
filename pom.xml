@@ -15,6 +15,7 @@
     <modules>
         <module>demo-hello</module>
         <module>demo-redisson</module>
+        <module>java-test</module>
     </modules>
 
     <build>
